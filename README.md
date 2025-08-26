@@ -1,142 +1,164 @@
-YOHAN - All-in-One Git CLI
+Here's a full **README.md** file for your Go-based Git CLI wrapper project:
 
-✨ YOHAN is a colorful, emoji-friendly, interactive Git CLI built in Go. It simplifies Git operations like commit, push, pull, branch management, stashing, tagging, and more.
+---
 
-Features
+# ✨ YOHAN: All-in-One Git CLI ✨
 
-Auto-generate commit messages based on staged changes
+A colorful, interactive, and user-friendly Git CLI wrapper written in **Go**.
+It simplifies common Git workflows with emojis, clear prompts, and an interactive menu system.
 
-Editable commit messages before committing
+---
 
-Interactive menu mode with colorful output and icons
+## 🚀 Features
 
-Full support for all common Git operations
+* ✅ **Interactive Menu Mode** – Run `yohan` with no arguments to use the menu-based CLI.
+* ✅ **Command-Line Mode** – Run `yohan <command>` for direct Git commands.
+* ✅ **Smart Auto Commit & Push** – Suggests commit messages automatically based on changes.
+* ✅ **Safety Checks** – Confirms before running dangerous operations like `git reset --hard`.
+* ✅ **Emoji-enhanced Output** – Friendly, colorful command execution with clear status icons.
 
-Works on Mac, Linux, Windows terminals
+---
 
-Setup
-1. Prerequisites
+## 🛠 Installation
 
-Git
- installed and configured
+1. **Clone this repository**:
 
-Go
- installed (version 1.20+)
+   ```bash
+   git clone <your-repo-url>
+   cd yohan-cli
+   ```
 
-2. Installation
+2. **Build the binary**:
 
-Clone the repository:
+   ```bash
+   go build -o yohan
+   ```
 
-git clone <repo-url>
-cd yohan
+3. **Move binary to PATH (optional)**:
 
+   ```bash
+   sudo mv yohan /usr/local/bin/
+   ```
 
-Build the executable:
+Now you can run `yohan` globally from anywhere! 🎉
 
-go build -o yohan main.go
+---
 
+## 📖 Usage
 
-(Optional) Move to a directory in your PATH for global usage:
+You can use **two modes**:
 
-# Mac / Linux
-sudo mv yohan /usr/local/bin/
+### 1️⃣ Interactive Menu Mode
 
-# Windows (PowerShell)
-Move-Item .\yohan.exe C:\Windows\System32\
+Just run:
 
-Usage
-
-YOHAN can be used in two modes:
-
-1. Interactive Menu Mode
-
-Run the tool without arguments:
-
+```bash
 yohan
+```
 
+You’ll see a menu like this:
 
-You’ll see a colorful menu with all Git commands. Choose an option and follow prompts.
+```
+✨ YOHAN: All-in-One Git CLI ✨
+Select an option:
+1️⃣ Auto commit & push changes
+2️⃣ Git status
+3️⃣ Git log (last 5 commits)
+4️⃣ Git branch
+5️⃣ Git checkout <branch>
+...
+```
 
-2. Direct Command-Line Mode
+### 2️⃣ Command-Line Mode
 
-Run specific commands directly:
+You can run specific commands directly:
 
-yohan <command> [options]
+```bash
+yohan commit           # Auto commit & push
+yohan status           # Git status
+yohan log              # Last 5 commits
+yohan branch           # List branches
+yohan checkout dev     # Checkout branch
+yohan pull             # Git pull
+yohan push             # Git push
+yohan merge main       # Merge branch
+yohan stash            # Stash changes
+yohan stash-pop        # Apply stash
+yohan tag v1.0.0       # Create a tag
+yohan diff             # Show diffs
+yohan remote           # Show remotes
+yohan clone <url>      # Clone repo
+yohan reset --hard     # Hard reset (asks for confirmation)
+```
 
-Supported Commands
-Basic Operations
-Command	Description	Example
-status	Show repository status	yohan status
-add <files>	Stage files (. for all)	yohan add .
-commit	Auto-generate commit message	yohan commit
-commit -m "message"	Commit with your own message	yohan commit -m "Fix bug"
-push	Push current branch to remote	yohan push
-pull	Pull latest changes	yohan pull
-log [n]	Show last n commits (default 5)	yohan log 10
-diff	Show unstaged changes	yohan diff
-reset --hard	Hard reset current branch	yohan reset --hard
-Branching & Merging
-Command	Description	Example
-branch	List all branches	yohan branch
-branch <name>	Create a new branch	yohan branch feature/login
-checkout <branch>	Switch to a branch	yohan checkout develop
-merge <branch>	Merge branch into current	yohan merge feature/login
-Remote Operations
-Command	Description	Example
-remote	List remotes	yohan remote
-remote add <name> <url>	Add remote	yohan remote add origin https://...
-clone <url>	Clone repository	yohan clone https://github.com/user/repo.git
-Stashing
-Command	Description	Example
-stash	Stash changes	yohan stash
-stash-pop	Apply last stash	yohan stash-pop
-stash list	Show all stashes	yohan stash list
-Tagging
-Command	Description	Example
-tag	List tags	yohan tag
-tag <name>	Create a new tag	yohan tag v1.0
-Other Useful Commands
-Command	Description	Example
-clean	Remove untracked files	yohan clean
-show <file>	Show file content in last commit	yohan show main.go
-Auto Commit & Push
+---
 
-Stages all changes automatically
+## 🔑 Example Workflow
 
-Generates a commit message (Add / Update / Remove)
+1. Stage, commit, and push with **automatic commit messages**:
 
-Shows commit message for editing before commit
+   ```bash
+   yohan commit
+   ```
 
-Pushes changes to remote
+   → Suggests commit messages like:
 
-Example:
+   ```
+   ➕ Add file1.go; 📝 Update main.go; ❌ Remove old.go
+   ```
 
-yohan commit
+   You can edit before confirming.
 
-Color & Icon Legend
+2. Quickly check status:
 
-✅ Success
+   ```bash
+   yohan status
+   ```
 
-❌ Error
+3. Checkout a new branch:
 
-⚠️ Warning
+   ```bash
+   yohan checkout feature-login
+   ```
 
-📥 Staging changes
+---
 
-💾 Committing
+## ⚠️ Safety Features
 
-🚀 Pushing
+* `yohan reset --hard` → Always asks for confirmation before running.
+* Auto commit → Prevents empty commits if no changes are staged.
 
-➕ Add files
+---
 
-📝 Modified files
+## 📦 Dependencies
 
-❌ Removed files
+* **Go** (>= 1.20)
+* **Git** installed and available in PATH
 
-Supported Platforms
+---
 
-MacOS Terminal
+## 🎨 Demo Screenshot (Terminal)
 
-Linux Terminal
+```
+✨ YOHAN: All-in-One Git CLI ✨
+1️⃣ Auto commit & push changes
+2️⃣ Git status
+3️⃣ Git log (last 5 commits)
+...
+```
 
-Windows PowerShell / CMD
+---
+
+## 🤝 Contributing
+
+Feel free to fork, improve, and submit pull requests! 🚀
+
+---
+
+## 📜 License
+
+MIT License © 2025 – Built with ❤️ by Yohan
+
+---
+
+Do you want me to also add a **"Custom Alias Setup"** section in the README so that you can run `yohan -m "msg"` like `git commit -m "msg"` (shortcut style)?
