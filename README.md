@@ -1,74 +1,142 @@
-content := []byte(`# Yohan Git Automation Tool
+YOHAN - All-in-One Git CLI
 
-This is a simple Go-based command-line tool to automate Git operations.
+✨ YOHAN is a colorful, emoji-friendly, interactive Git CLI built in Go. It simplifies Git operations like commit, push, pull, branch management, stashing, tagging, and more.
 
-## Features
-- Automatically creates a README.md if it doesn't exist
-- Runs \`git add .\`
-- Commits with your provided message
-- Pushes changes to the remote repository
+Features
 
-## Usage
-\`\`\`bash
-yohan -m "Your commit message"
-\`\`\`
+Auto-generate commit messages based on staged changes
 
-This will:
-1. Create README.md if it doesn't exist
-2. Stage all changes
-3. Commit with the message you provide
-4. Push to the current branch
+Editable commit messages before committing
 
-## Setup Instructions
+Interactive menu mode with colorful output and icons
 
-### Prerequisites
-- Git installed
-- Go installed
+Full support for all common Git operations
 
-### Mac
-1. Open Terminal.
-2. Install Go:  
-\`\`\`bash
-brew install go
-\`\`\`
-3. Clone your repo and place `yohan.go` inside it.
-4. Build the tool:  
-\`\`\`bash
-go build -o yohan yohan.go
-\`\`\`
-5. Move it to your PATH (optional):  
-\`\`\`bash
-mv yohan /usr/local/bin/
-\`\`\`
+Works on Mac, Linux, Windows terminals
 
-### Linux
-1. Open Terminal.
-2. Install Go:  
-\`\`\`bash
-sudo apt update
-sudo apt install golang-go git -y
-\`\`\`
-3. Clone your repo and place `yohan.go` inside it.
-4. Build the tool:  
-\`\`\`bash
-go build -o yohan yohan.go
-\`\`\`
-5. Move it to your PATH (optional):  
-\`\`\`bash
+Setup
+1. Prerequisites
+
+Git
+ installed and configured
+
+Go
+ installed (version 1.20+)
+
+2. Installation
+
+Clone the repository:
+
+git clone <repo-url>
+cd yohan
+
+
+Build the executable:
+
+go build -o yohan main.go
+
+
+(Optional) Move to a directory in your PATH for global usage:
+
+# Mac / Linux
 sudo mv yohan /usr/local/bin/
-\`\`\`
 
-### Windows
-1. Install Git for Windows: [https://git-scm.com/download/win](https://git-scm.com/download/win)  
-2. Install Go for Windows: [https://go.dev/dl/](https://go.dev/dl/)  
-3. Open Command Prompt or PowerShell.
-4. Navigate to the folder with `yohan.go`.
-5. Build the tool:  
-\`\`\`powershell
-go build -o yohan.exe yohan.go
-\`\`\`
-6. Add the folder with `yohan.exe` to your PATH environment variable.
+# Windows (PowerShell)
+Move-Item .\yohan.exe C:\Windows\System32\
 
-## Author
-Your Name
-`)
+Usage
+
+YOHAN can be used in two modes:
+
+1. Interactive Menu Mode
+
+Run the tool without arguments:
+
+yohan
+
+
+You’ll see a colorful menu with all Git commands. Choose an option and follow prompts.
+
+2. Direct Command-Line Mode
+
+Run specific commands directly:
+
+yohan <command> [options]
+
+Supported Commands
+Basic Operations
+Command	Description	Example
+status	Show repository status	yohan status
+add <files>	Stage files (. for all)	yohan add .
+commit	Auto-generate commit message	yohan commit
+commit -m "message"	Commit with your own message	yohan commit -m "Fix bug"
+push	Push current branch to remote	yohan push
+pull	Pull latest changes	yohan pull
+log [n]	Show last n commits (default 5)	yohan log 10
+diff	Show unstaged changes	yohan diff
+reset --hard	Hard reset current branch	yohan reset --hard
+Branching & Merging
+Command	Description	Example
+branch	List all branches	yohan branch
+branch <name>	Create a new branch	yohan branch feature/login
+checkout <branch>	Switch to a branch	yohan checkout develop
+merge <branch>	Merge branch into current	yohan merge feature/login
+Remote Operations
+Command	Description	Example
+remote	List remotes	yohan remote
+remote add <name> <url>	Add remote	yohan remote add origin https://...
+clone <url>	Clone repository	yohan clone https://github.com/user/repo.git
+Stashing
+Command	Description	Example
+stash	Stash changes	yohan stash
+stash-pop	Apply last stash	yohan stash-pop
+stash list	Show all stashes	yohan stash list
+Tagging
+Command	Description	Example
+tag	List tags	yohan tag
+tag <name>	Create a new tag	yohan tag v1.0
+Other Useful Commands
+Command	Description	Example
+clean	Remove untracked files	yohan clean
+show <file>	Show file content in last commit	yohan show main.go
+Auto Commit & Push
+
+Stages all changes automatically
+
+Generates a commit message (Add / Update / Remove)
+
+Shows commit message for editing before commit
+
+Pushes changes to remote
+
+Example:
+
+yohan commit
+
+Color & Icon Legend
+
+✅ Success
+
+❌ Error
+
+⚠️ Warning
+
+📥 Staging changes
+
+💾 Committing
+
+🚀 Pushing
+
+➕ Add files
+
+📝 Modified files
+
+❌ Removed files
+
+Supported Platforms
+
+MacOS Terminal
+
+Linux Terminal
+
+Windows PowerShell / CMD
