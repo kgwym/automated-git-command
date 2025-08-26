@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"os/exec"
@@ -70,7 +71,16 @@ func main() {
 
 	fmt.Println("Auto Commit Message:", commitMessage)
 
-	// Step 4: git commit
+	// Step 4: let user edit or confirm
+	fmt.Println("Edit commit message or press Enter to keep:")
+	reader := bufio.NewReader(os.Stdin)
+	userInput, _ := reader.ReadString('\n')
+	userInput = strings.TrimSpace(userInput)
+	if userInput != "" {
+		commitMessage = userInput
+	}
+
+	// Step 5: git commit
 	cmdCommit := exec.Command("git", "commit", "-m", commitMessage)
 	cmdCommit.Stdout = os.Stdout
 	cmdCommit.Stderr = os.Stderr
@@ -79,7 +89,7 @@ func main() {
 		return
 	}
 
-	// Step 5: git push
+	// Step 6: git push
 	cmdPush := exec.Command("git", "push")
 	cmdPush.Stdout = os.Stdout
 	cmdPush.Stderr = os.Stderr
