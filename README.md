@@ -1,56 +1,174 @@
-Here's a full **README.md** file for your Go-based Git CLI wrapper project:
+Absolutely! Here’s a **full, descriptive, professional README** that covers **installation, setup, and usage** for **macOS, Linux, and Windows**, along with detailed explanations for all features and workflows:
 
 ---
 
 # ✨ YOHAN: All-in-One Git CLI ✨
 
-A colorful, interactive, and user-friendly Git CLI wrapper written in **Go**.
-It simplifies common Git workflows with emojis, clear prompts, and an interactive menu system.
+**YOHAN** is a comprehensive Git CLI wrapper written in **Go**.
+It simplifies Git workflows, reduces repetitive commands, and provides a colorful, interactive, and intuitive interface for developers across **macOS, Linux, and Windows**.
+
+YOHAN supports both **interactive menu-driven operations** and **direct command-line execution**, complete with **emoji-enhanced output** and **smart commit message suggestions**.
 
 ---
 
-## 🚀 Features
+## 🛠 Features
 
-* ✅ **Interactive Menu Mode** – Run `yohan` with no arguments to use the menu-based CLI.
-* ✅ **Command-Line Mode** – Run `yohan <command>` for direct Git commands.
-* ✅ **Smart Auto Commit & Push** – Suggests commit messages automatically based on changes.
-* ✅ **Safety Checks** – Confirms before running dangerous operations like `git reset --hard`.
-* ✅ **Emoji-enhanced Output** – Friendly, colorful command execution with clear status icons.
+1. **Interactive Menu Mode**
+
+   * Launch a user-friendly menu with numbered options for common Git commands.
+   * Ideal for beginners and users who prefer visual prompts over typing commands.
+
+2. **Command-Line Mode**
+
+   * Execute commands directly: `yohan <command>`
+   * Perfect for automation, scripts, or fast workflow.
+
+3. **Auto Commit & Push**
+
+   * Stages all changes (`git add .`) automatically.
+   * Suggests commit messages based on added, modified, and deleted files.
+   * Allows editing the suggested message before committing.
+   * Pushes commits to the remote repository.
+
+4. **Safety Features**
+
+   * Confirms before running destructive commands such as `git reset --hard`.
+   * Prevents empty commits if no changes are staged.
+
+5. **Emoji & Color Output**
+
+   * Uses ANSI colors for clarity.
+   * Adds emojis to indicate actions, making terminal output more readable.
+
+6. **Supports All Common Git Commands**
+
+   * `status`, `log`, `branch`, `checkout`, `pull`, `push`, `merge`, `stash`, `tag`, `diff`, `remote`, `clone`, and `reset`.
 
 ---
 
-## 🛠 Installation
+## 💻 Cross-Platform Setup
 
-1. **Clone this repository**:
+YOHAN can be installed on **macOS, Linux, and Windows**.
+
+### Prerequisites
+
+* **Go (>=1.20)** installed: [https://go.dev/dl/](https://go.dev/dl/)
+* **Git** installed and available in PATH
+
+  ```bash
+  git --version
+  ```
+
+---
+
+### 1️⃣ macOS Setup
+
+1. Install Go (if not already installed):
+
+   ```bash
+   brew install go
+   ```
+
+2. Clone the repository:
 
    ```bash
    git clone <your-repo-url>
    cd yohan-cli
    ```
 
-2. **Build the binary**:
+3. Build the binary:
 
    ```bash
    go build -o yohan
    ```
 
-3. **Move binary to PATH (optional)**:
+4. Move binary to system PATH:
 
    ```bash
    sudo mv yohan /usr/local/bin/
    ```
 
-Now you can run `yohan` globally from anywhere! 🎉
+5. Verify installation:
+
+   ```bash
+   yohan
+   ```
+
+---
+
+### 2️⃣ Linux Setup (Ubuntu/Debian)
+
+1. Install Go and Git:
+
+   ```bash
+   sudo apt update
+   sudo apt install -y golang-go git
+   ```
+
+2. Clone the repository:
+
+   ```bash
+   git clone <your-repo-url>
+   cd yohan-cli
+   ```
+
+3. Build the binary:
+
+   ```bash
+   go build -o yohan
+   ```
+
+4. Move binary to PATH:
+
+   ```bash
+   sudo mv yohan /usr/local/bin/
+   ```
+
+5. Verify installation:
+
+   ```bash
+   yohan
+   ```
+
+---
+
+### 3️⃣ Windows Setup
+
+1. Install Go: [https://go.dev/dl/](https://go.dev/dl/)
+   Ensure Go bin directory is in your PATH (e.g., `C:\Go\bin`)
+
+2. Install Git: [https://git-scm.com/download/win](https://git-scm.com/download/win)
+
+3. Open **Git Bash** and clone the repository:
+
+   ```bash
+   git clone <your-repo-url>
+   cd yohan-cli
+   ```
+
+4. Build the binary:
+
+   ```bash
+   go build -o yohan.exe
+   ```
+
+5. Add binary to PATH (optional): Move `yohan.exe` to a folder in PATH (e.g., `C:\Users\<YourName>\bin`)
+
+6. Verify:
+
+   ```bash
+   yohan
+   ```
+
+> **Tip:** Use Git Bash or Windows Terminal for full color and emoji support.
 
 ---
 
 ## 📖 Usage
 
-You can use **two modes**:
+### Interactive Menu Mode
 
-### 1️⃣ Interactive Menu Mode
-
-Just run:
+Run:
 
 ```bash
 yohan
@@ -67,98 +185,95 @@ Select an option:
 4️⃣ Git branch
 5️⃣ Git checkout <branch>
 ...
+0️⃣ Exit
 ```
 
-### 2️⃣ Command-Line Mode
+* Enter the number of the desired command
+* Follow prompts to enter branch names, tags, or confirm destructive actions
 
-You can run specific commands directly:
+---
+
+### Command-Line Mode
+
+Direct commands:
 
 ```bash
-yohan commit           # Auto commit & push
-yohan status           # Git status
+yohan commit           # Auto commit & push changes
+yohan status           # Show Git status
 yohan log              # Last 5 commits
 yohan branch           # List branches
-yohan checkout dev     # Checkout branch
-yohan pull             # Git pull
-yohan push             # Git push
+yohan checkout dev     # Checkout branch 'dev'
+yohan pull             # Pull changes from remote
+yohan push             # Push changes
 yohan merge main       # Merge branch
 yohan stash            # Stash changes
 yohan stash-pop        # Apply stash
 yohan tag v1.0.0       # Create a tag
-yohan diff             # Show diffs
+yohan diff             # Show diff
 yohan remote           # Show remotes
 yohan clone <url>      # Clone repo
-yohan reset --hard     # Hard reset (asks for confirmation)
+yohan reset --hard     # Hard reset (confirmation required)
 ```
 
 ---
 
-## 🔑 Example Workflow
+## 📝 Auto Commit & Push Workflow
 
-1. Stage, commit, and push with **automatic commit messages**:
-
-   ```bash
-   yohan commit
-   ```
-
-   → Suggests commit messages like:
+1. Stages all changes: `git add .`
+2. Detects Added (A), Modified (M), and Deleted (D) files
+3. Generates a suggested commit message:
 
    ```
-   ➕ Add file1.go; 📝 Update main.go; ❌ Remove old.go
+   ➕ Add main.go, utils.go; 📝 Update README.md; ❌ Remove old_test.go
    ```
-
-   You can edit before confirming.
-
-2. Quickly check status:
-
-   ```bash
-   yohan status
-   ```
-
-3. Checkout a new branch:
-
-   ```bash
-   yohan checkout feature-login
-   ```
+4. Allows editing before committing
+5. Executes `git commit -m "..."` and pushes automatically
 
 ---
 
 ## ⚠️ Safety Features
 
-* `yohan reset --hard` → Always asks for confirmation before running.
-* Auto commit → Prevents empty commits if no changes are staged.
+* `reset --hard` always asks for confirmation.
+* Prevents committing if no changes are staged.
 
 ---
 
-## 📦 Dependencies
-
-* **Go** (>= 1.20)
-* **Git** installed and available in PATH
-
----
-
-## 🎨 Demo Screenshot (Terminal)
+## 🎨 Example Terminal Output
 
 ```
-✨ YOHAN: All-in-One Git CLI ✨
-1️⃣ Auto commit & push changes
-2️⃣ Git status
-3️⃣ Git log (last 5 commits)
-...
+📥 Staging all changes...
+✅ Changes staged successfully!
+Suggested Commit Message:
+➕ Add main.go, utils.go; 📝 Update README.md
+Edit commit message or press Enter to keep:
+💾 Committing changes...
+✅ Commit successful!
+🚀 Pushing changes to remote...
+🎉 Changes pushed successfully!
 ```
 
 ---
 
 ## 🤝 Contributing
 
-Feel free to fork, improve, and submit pull requests! 🚀
+* Fork the repository
+* Make improvements or add new features
+* Submit pull requests
+
+Ideas:
+
+* Add custom shortcut mode (`yohan -m "commit message"`)
+* Integrate GitHub/GitLab PR creation
+* Add configuration for default branch push
 
 ---
 
 ## 📜 License
 
-MIT License © 2025 – Built with ❤️ by Yohan
+MIT License © 2025 – Built with ❤️ by **Yohan Manohara**
 
 ---
 
-Do you want me to also add a **"Custom Alias Setup"** section in the README so that you can run `yohan -m "msg"` like `git commit -m "msg"` (shortcut style)?
+If you want, I can **also create a visual “All-in-One Setup Table” for macOS, Linux, and Windows** so users can copy-paste commands directly without reading the long instructions.
+
+Do you want me to make that table too?
