@@ -4,17 +4,11 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 )
 
 func main() {
-	if len(os.Args) < 3 || os.Args[1] != "-m" {
-		fmt.Println("Usage: yohan -m \"commit message\"")
-		return
-	}
-
-	commitMessage := os.Args[2]
-
-	// git add .
+	// Step 1: git add .
 	cmdAdd := exec.Command("git", "add", ".")
 	cmdAdd.Stdout = os.Stdout
 	cmdAdd.Stderr = os.Stderr
@@ -23,7 +17,60 @@ func main() {
 		return
 	}
 
-	// git commit -m "message"
+	// Step 2: get staged changes
+	cmdDiff := exec.Command("git", "diff", "--staged", "--name-status")
+	diffOut, err := cmdDiff.Output()
+	if err != nil {
+		fmt.Println("Error getting git diff:", err)
+		return
+	}
+	diffLines := strings.Split(string(diffOut), "\n")
+
+	if len(diffLines) == 0 || (len(diffLines) == 1 && diffLines[0] == "") {
+		fmt.Println("No changes staged for commit.")
+		return
+	}
+
+	// Step 3: auto-generate commit message
+	addedFiles := []string{}
+	modifiedFiles := []string{}
+	deletedFiles := []string{}
+
+	for _, line := range diffLines {
+		parts := strings.Fields(line)
+		if len(parts) < 2 {
+			continue
+		}
+		status, file := parts[0], parts[1]
+		switch status {
+		case "A":
+			addedFiles = append(addedFiles, file)
+		case "M":
+			modifiedFiles = append(modifiedFiles, file)
+		case "D":
+			deletedFiles = append(deletedFiles, file)
+		}
+	}
+
+	msgParts := []string{}
+	if len(addedFiles) > 0 {
+		msgParts = append(msgParts, fmt.Sprintf("Add %s", strings.Join(addedFiles, ", ")))
+	}
+	if len(modifiedFiles) > 0 {
+		msgParts = append(msgParts, fmt.Sprintf("Update %s", strings.Join(modifiedFiles, ", ")))
+	}
+	if len(deletedFiles) > 0 {
+		msgParts = append(msgParts, fmt.Sprintf("Remove %s", strings.Join(deletedFiles, ", ")))
+	}
+
+	commitMessage := strings.Join(msgParts, "; ")
+	if commitMessage == "" {
+		commitMessage = "Update project"
+	}
+
+	fmt.Println("Auto Commit Message:", commitMessage)
+
+	// Step 4: git commit
 	cmdCommit := exec.Command("git", "commit", "-m", commitMessage)
 	cmdCommit.Stdout = os.Stdout
 	cmdCommit.Stderr = os.Stderr
@@ -32,7 +79,7 @@ func main() {
 		return
 	}
 
-	// git push
+	// Step 5: git push
 	cmdPush := exec.Command("git", "push")
 	cmdPush.Stdout = os.Stdout
 	cmdPush.Stderr = os.Stderr
